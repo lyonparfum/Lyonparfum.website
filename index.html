@@ -115,11 +115,18 @@
                 </div>
                 <input id="searchInput" type="text" placeholder="Buscar por nombre o marca..." class="block w-full bg-[#131f41] border border-slate-700 rounded-full py-3 pl-12 pr-4 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold sm:text-lg">
             </div>
-            <div id="filter-container" class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 sm:gap-x-4">
-                <button data-filter="todos" class="filter-btn active font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Todos</button>
-                <button data-filter="hombre" class="filter-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Hombre</button>
-                <button data-filter="mujer" class="filter-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Mujer</button>
-                <button data-filter="unisex" class="filter-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Unisex</button>
+            <!-- Filtros por Género -->
+            <div id="gender-filter-container" class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 sm:gap-x-4">
+                <button data-filter="todos" class="filter-btn gender-btn active font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Todos</button>
+                <button data-filter="hombre" class="filter-btn gender-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Hombre</button>
+                <button data-filter="mujer" class="filter-btn gender-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Mujer</button>
+                <button data-filter="unisex" class="filter-btn gender-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Unisex</button>
+            </div>
+            <!-- Filtros por Tipo -->
+            <div id="type-filter-container" class="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 sm:gap-x-4 mt-4">
+                <button data-filter="todos" class="filter-btn type-btn active font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Todos</button>
+                <button data-filter="arabe" class="filter-btn type-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Árabe</button>
+                <button data-filter="diseñador" class="filter-btn type-btn font-semibold border border-gold/50 rounded-full px-5 py-2 text-base transition-colors hover:bg-gold/10">Diseñador</button>
             </div>
         </div>
 
@@ -193,13 +200,11 @@
                 <h3 class="text-xl font-semibold mb-3">Enviar pedido a:</h3>
                 <div class="flex gap-4 mb-4 text-lg">
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="whatsapp-contact" value="5491154811794" checked class="accent-gold">
-                        Diego
+                        <input type="radio" name="whatsapp-contact" value="5491154811794" checked class="accent-gold" id="wpp-diego">
+                        WhatsApp
                     </label>
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="whatsapp-contact" value="5491131052691" class="accent-gold">
-                        Sofia
-                    </label>
+                    <!-- El input de Sofia se ha ocultado, pero el 'value' es el de Diego -->
+                    <input type="radio" name="whatsapp-contact" value="5491131052691" class="accent-gold hidden" id="wpp-sofia">
                 </div>
             </div>
 
@@ -220,385 +225,385 @@
         // --- BASE DE DATOS DE PERFUMES ---
         const perfumes = [
             {
-                id: 1, nombre: "Club de Nuit Intense Man", marca: "Armaf", genero: "hombre", status: 'disponible', 
+                id: 1, nombre: "Club de Nuit Intense Man", marca: "Armaf", genero: "hombre", tipo: "arabe", status: 'disponible', 
                 imagen: "https://zaoud.it/cdn/shop/files/club-de-nuit-intense-man-parfum-bottle-against-white-background.jpg?v=1715629264",
                 precios: { "Perfume Entero": 83800, "Decant 10ml": 15200 },
                 notas: { salida: "Limón, Piña, Bergamota, Grosellas Negras y Manzana.", corazon: "Abedul, Jazmín y Rosa.", fondo: "Almizcle, Ámbar Gris, Pachulí y Vainilla." }
             },
 
             {
-                id: 2, nombre: "9 PM", marca: "Afnan", genero: "hombre", status: 'disponible',
+                id: 2, nombre: "9 PM", marca: "Afnan", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/004/407/494/products/9pm-49e1ed09195ce8294017136152422274-1024-1024.webp",
                 precios: { "Perfume Entero": 83800, "Decant 10ml": 15200 },
                 notas: { salida: "Manzana, Canela, Lavanda Silvestre y Bergamota.", corazon: "Flor de Azahar y Lirio de los Valles.", fondo: "Vainilla, Haba Tonka, Ámbar y Pachulí." }
             },
 
             {
-                id: 43, nombre: "9AM", marca: "Afnan", genero: "unisex", status: 'agotado',
+                id: 43, nombre: "9AM", marca: "Afnan", genero: "unisex", tipo: "arabe", status: 'agotado',
                 imagen: "https://perfumescardales.com.ar/wp-content/uploads/2023/02/Fotos-pagina.pptx-54.jpg",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Limón, Mandarina, Pimienta rosa, Cardamomo", corazon: "Manzana verde, Lavanda, Flor de azahar, Rosa", fondo: "Cedro, Musgo, Almizcle, Pachulí" }
             },
 
             {
-                id: 23, nombre: "Al Quiam Gold", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 23, nombre: "Al Quiam Gold", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://http2.mlstatic.com/D_Q_NP_602615-MLU54985143689_052023-O.webp",
                 precios: { "Perfume Entero": 83800 },
                 notas: { salida: "Azafrán y Frambuesa.", corazon: "Pachulí y Cuero.", fondo: "Ámbar, Madera de Oud, Vetiver y Benjuí." }
             },
 
             {
-                id: 28, nombre: "Amber Oud Gold Edition", marca: "Al Haramain", genero: "unisex", status: 'disponible',
+                id: 28, nombre: "Amber Oud Gold Edition", marca: "Al Haramain", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-19-4b1b46c7ae0155258417221914670528-1024-1024.png",
                 precios: { "Perfume 120ml": 129200 },
                 notas: { salida: "Bergamota y Notas Verdes.", corazon: "Melón, Piña y Ámbar.", fondo: "Notas Amaderadas, Vainilla y Almizcle." }
             },
 
             {
-                id: 12, nombre: "Asad", marca: "Lattafa", genero: "hombre", status: 'disponible',
+                id: 12, nombre: "Asad", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-77-d03a8b6033ecc5f06917233950992128-1024-1024.png",
                 precios: { "Perfume Entero": 64500 },
                 notas: { salida: "Pimienta Negra, Tabaco y Piña.", corazon: "Pachulí, Café y Iris.", fondo: "Vainilla, Ámbar, Madera Seca, Benjuí y Ládano." }
             },
 
             {
-                id: 3, nombre: "Asad Bourbon", marca: "Lattafa", genero: "hombre", status: 'disponible',
+                id: 3, nombre: "Asad Bourbon", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://http2.mlstatic.com/D_NQ_NP_756228-MLA82409078906_022025-O.webp",
                 precios: { "Perfume Entero": 81500, "Decant 10ml": 14800 },
                 notas: { salida: "Lavanda, Ciruela Mirabel, Pimienta Rosa", corazon: "Cacao, Nuez Moscada, Davana", fondo: "Vainilla bourbon, Ámbar, Vetiver" }
             },
 
             {
-                id: 14, nombre: "Badee al Oud Amethyst", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 14, nombre: "Badee al Oud Amethyst", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://getthelookar.vtexassets.com/arquivos/ids/183948/242735_edp-lattafa-badee-al-oud-amethyst-x-100-ml_imagen-1.jpg?v=638678744172330000",
                 precios: { "Perfume Entero": 64800 },
                 notas: { salida: "Pimienta Rosa y Bergamota.", corazon: "Rosa Turca, Rosa de Bulgaria y Jazmín.", fondo: "Madera de Oud, Ámbar y Vainilla." }
             },
 
             {
-                id: 13, nombre: "Badee al Oud For Glory", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 13, nombre: "Badee al Oud For Glory", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/004/407/494/products/oud-for-glory-a27d0d4cc30843530417100964116395-1024-1024.jpg",
                 precios: { "Perfume Entero": 69500 },
                 notas: { salida: "Azafrán, Nuez Moscada y Lavanda.", corazon: "Madera de Oud y Pachulí.", fondo: "Madera de Oud, Pachulí y Almizcle." }
             },
 
             {
-                id: 8, nombre: "Badee Al Oud Honor & Glory", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 8, nombre: "Badee Al Oud Honor & Glory", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-78-43f49cae415b5598ad17233951702125-1024-1024.png",
                 precios: { "Perfume Entero": 69500, "Decant 10ml": 13500 },
                 notas: { salida: "Piña y Crème Brûlée.", corazon: "Canela, Cúrcuma, Pimienta Negra y Benjuí.", fondo: "Vainilla, Sándalo, Cachemira y Musgo." }
             },
 
             {
-                id: 41, nombre: "Bleu", marca: "Bharara", genero: "hombre", status: 'agotado',
+                id: 41, nombre: "Bleu", marca: "Bharara", genero: "hombre", tipo: "arabe", status: 'agotado',
                 imagen: "https://acdn-us.mitiendanube.com/stores/005/137/375/products/1-2025-05-07t174431-862-fc1edda04510e6a10c17466507459189-640-0.png",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Naranja, Bergamota y Limón.", corazon: "Bayas Silvestres.", fondo: "Vainilla, Ámbar y Almizcle Blanco." }
             },
 
             {
-                id: 33, nombre: "Club de Nuit Sillage", marca: "Armaf", genero: "unisex", status: 'disponible',
+                id: 33, nombre: "Club de Nuit Sillage", marca: "Armaf", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-32-df045352e5fefc2a2917213965987881-1024-1024.png",
                 precios: { "Perfume Entero": 91000 },
                 notas: { salida: "Bergamota, Grosellas Negras, Limón, Lima, Hojas de Violeta y Jengibre.", corazon: "Rosa, Iris y Jazmín.", fondo: "Ambroxan, Almizcle, Sándalo y Cedro." }
             },
 
             {
-                id: 32, nombre: "Club de Nuit Urban Man", marca: "Armaf", genero: "hombre", status: 'disponible',
+                id: 32, nombre: "Club de Nuit Urban Man", marca: "Armaf", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://http2.mlstatic.com/D_NQ_NP_792688-MLC47635607008_092021-O.webp",
                 precios: { "Perfume Entero": 83800 },
                 notas: { salida: "Menta, Bergamota, Pomelo y Cardamomo.", corazon: "Nuez Moscada, Jengibre, Cedro y Lavanda.", fondo: "Sándalo, Musgo de Roble, Vetiver y Pachulí." }
             },
 
             {
-                id: 30, nombre: "Club de Nuit Urban Man Elixir", marca: "Armaf", genero: "hombre", status: 'disponible',
+                id: 30, nombre: "Club de Nuit Urban Man Elixir", marca: "Armaf", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-73-991cfe49fc9e9f8eb917233938437094-1024-1024.png",
                 precios: { "Perfume Entero": 93500 },
                 notas: { salida: "Pimienta Rosa, Bergamota, Jazmín y Flor de Azahar.", corazon: "Lavanda, Geranio, Azafrán, Elemi, Tagetes y Vetiver.", fondo: "Ambroxan, Pachulí, Ámbar, Cedro y Ládano." }
             },
 
             {
-                id: 34, nombre: "Club de Nuit Woman", marca: "Armaf", genero: "mujer", status: 'disponible',
+                id: 34, nombre: "Club de Nuit Woman", marca: "Armaf", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-7-ecab479537d181732117306455433237-1024-1024.png",
                 precios: { "Perfume Entero": 88500 },
                 notas: { salida: "Bergamota, Pomelo, Durazno y Naranja.", corazon: "Geranio, Jazmín, Lichi y Rosa.", fondo: "Pachulí, Almizcle, Vainilla y Vetiver." }
             },
 
             {
-                id: 31, nombre: "Eclaire", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 31, nombre: "Eclaire", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/003/862/651/products/eclaire-07136148acaa3edce517510559973710-1024-1024.jpg",
                 precios: { "Perfume Entero": 81500 },
                 notas: { salida: "Caramelo, Leche y Azúcar.", corazon: "Flores Blancas y Miel.", fondo: "Vainilla, Praliné y Almizcle." }
             },
 
             {
-                id: 48, nombre: "Eeman", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 48, nombre: "Eeman", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://tusperfumesarabes.com/wp-content/uploads/2024/07/perfume-estuche-eeman-600x600.jpg",
                 precios: { "Perfume Entero": 79000 },
                 notas: { salida: "Flor de Azahar, Bergamota y Grosellas Negras.", corazon: "Nardos, Jazmín y Caléndula.", fondo: "Almizcle, Vainilla, Cedro y Pachulí." }
             },
 
             {
-                id: 52, nombre: "Eros Flame", marca: "Versace", genero: "hombre", status: 'agotado',
+                id: 52, nombre: "Eros Flame", marca: "Versace", genero: "hombre", tipo: "diseñador", status: 'agotado',
                 imagen: "https://www.farmaciasrp.com.ar/25118-large_default/versace-eros-flame-eau-de-parfum-100-ml.jpg",
                 precios: { "Perfume 100ml": 0 },
                 notas: { salida: "Mandarina, Pimienta Negra, Chinotto, Limón y Romero.", corazon: "Pimienta, Geranio y Rosa.", fondo: "Vainilla, Haba Tonka, Sándalo, Cedro de Texas, Pachulí y Musgo de Roble." }
             },
 
             {
-                id: 4, nombre: "Fakhar Black", marca: "Lattafa", genero: "hombre", status: 'disponible',
+                id: 4, nombre: "Fakhar Black", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://dcdn-us.mitiendanube.com/stores/005/122/918/products/diseno-sin-titulo-56-22368ff25ba8b4285a17320399220858-1024-1024.png",
                 precios: { "Perfume Entero": 76500, "Decant 10ml": 14500 },
                 notas: { salida: "Manzana, Bergamota y Jengibre.", corazon: "Lavanda, Salvia, Bayas de Enebro y Geranio.", fondo: "Haba Tonka, Amberwood, Cedro y Vetiver." }
             },
 
             {
-                id: 19, nombre: "Fakhar Gold", marca: "Lattafa", genero: "hombre", status: 'disponible',
+                id: 19, nombre: "Fakhar Gold", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/003/977/860/products/lattafafakharextrait-94eb86da72b03fc67f17031222720878-1024-1024.jpg",
                 precios: { "Perfume Entero": 79000 },
                 notas: { salida: "Pimienta Rosa, Pomelo y Cardamomo.", corazon: "Nardos, Notas Solares y Artemisia.", fondo: "Ámbar, Cachemira, Cuero y Ládano." }
             },
 
             {
-                id: 9, nombre: "Fakhar Women Rose", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 9, nombre: "Fakhar Women Rose", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/979/474/products/tmp_b64_d3c19afb-c5d3-46e8-8e5d-b92016ac4e21_979474_990673-c7058be7648da26a7717497652982176-1024-1024.png",
                 precios: { "Perfume Entero": 76500, "Decant 10ml": 14500 },
                 notas: { salida: "Frutas, Lirio, Granada y Aldehídos.", corazon: "Nardos, Jazmín, Gardenia, Ylang-Ylang, Madreselva, Peonía y Rosa.", fondo: "Vainilla, Ambroxan, Almizcle Blanco y Sándalo." }
             },
 
             {
-                id: 44, nombre: "Hawas for Him", marca: "Rasasi", genero: "hombre", status: 'agotado',
+                id: 44, nombre: "Hawas for Him", marca: "Rasasi", genero: "hombre", tipo: "arabe", status: 'agotado',
                 imagen: "https://d3cdlnm7te7ky2.cloudfront.net/media/catalog/product/cache/1f1b8d9a1b49678555bea203c2f52e39/1/5/155852-b-hawas-men-edp-100ml.jpg",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Manzana, Bergamota, Limón y Canela.", corazon: "Notas Acuáticas, Ciruela, Cardamomo y Flor de Azaha.", fondo: "Ámbar Gris, Almizcle, Pachulí y Madera a la Deriva." }
             },
 
             {
-                id: 20, nombre: "Haya", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 20, nombre: "Haya", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-4-ff6a96141c1e325eba17088779196744-480-0.png",
                 precios: { "Perfume Entero": 71800 },
                 notas: { salida: "Champán, Fresa, Naranja Sanguina, Rosa y Mandarina.", corazon: "Gardenia, Jazmín y Orquídea de Vainilla.", fondo: "Sándalo, Ámbar y Castaña." }
             },
 
             {
-                id: 27, nombre: "Hayaati Black", marca: "Lattafa", genero: "hombre", status: 'disponible',
+                id: 27, nombre: "Hayaati Black", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/001/393/605/products/shopping-37-d2758da7977bc251aa17282319422359-640-0.webp",
                 precios: { "Perfume Entero": 69500 },
                 notas: { salida: "Bergamota y Manzana.", corazon: "Canela y Notas Amaderadas.", fondo: "Almizcle y Vainilla." }
             },
 
             {
-                id: 29, nombre: "Hayaati Gold", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 29, nombre: "Hayaati Gold", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://http2.mlstatic.com/D_NQ_NP_766096-MLU69851897461_062023-O.webp",
                 precios: { "Perfume Entero": 59800 },
                 notas: { salida: "Pomelo, Bergamota, Grosella Negra", corazon: "Cuero, Azafrán, Durazno.", fondo: "Vainilla, Ámbar, Almizcle, Vertiver" }
             },
 
             {
-                id: 21, nombre: "Her Confession", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 21, nombre: "Her Confession", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-6-e98a09ad1ce5249bd017320400743898-640-0.png",
                 precios: { "Perfume Entero": 91000 },
                 notas: { salida: "Mistico, Canela.", corazon: "Nardos, Mahonial, Jazmín, Incienso", fondo: "Vainilla, Haba Tonka y Almizcle." }
             },
 
             {
-                id: 5, nombre: "Khamrah", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 5, nombre: "Khamrah", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://www.perfumerianormy.com.ar/wp-content/uploads/2024/08/5-final.png",
                 precios: { "Perfume Entero": 69500, "Decant 10ml": 13500 },
                 notas: { salida: "Canela, Nuez Moscada y Bergamota.", corazon: "Dátiles, Praliné, Nardos y Mahonial.", fondo: "Vainilla, Haba Tonka, Benjuí, Mirra, Amberwood y Akigalawood." }
             },
 
             {
-                id: 16, nombre: "Khamrah Dukhan", marca: "Lattafa", genero: "unisex", status: 'agotado',
+                id: 16, nombre: "Khamrah Dukhan", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'agotado',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-2025-06-13t100702-731-9d68d6a3450e29bbe017498426150396-1024-1024.png",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Especias, Pimiento, Mandarina", corazon: "Incienso, Ládano, Pachulí, Flor de Azahar", fondo: "Praliné, Haba Tonka, Benjuí, Tabaco y Ámbar." }
             },
 
             {
-                id: 15, nombre: "Khamrah Qahwa", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 15, nombre: "Khamrah Qahwa", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-8-709b11dccf2ba289f817153007918268-640-0.png",
                 precios: { "Perfume Entero": 71800 },
                 notas: { salida: "Jengibre, Canela y Cardamomo.", corazon: "Praliné, Frutas Confitadas y Flores Blancas.", fondo: "Café, Vainilla, Haba Tonka, Benjuí y Almizcle." }
             },
 
             {
-                id: 40, nombre: "King", marca: "Bharara", genero: "hombre", status: 'disponible',
+                id: 40, nombre: "King", marca: "Bharara", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://cdn.v2.tiendanegocio.com/gallery/22278/img_22278_18fca2f922d.jpeg",
                 precios: { "Perfume Entero": 150800 },
                 notas: { salida: "Naranja, Limón y Bergamota.", corazon: "Notas Afrutadas.", fondo: "Vainilla, Ámbar y Almizcle Blanco." }
             },
 
             {
-                id: 51, nombre: "Le Male EDT", marca: "Jean Paul Gaultier", genero: "hombre", status: 'disponible',
+                id: 51, nombre: "Le Male EDT", marca: "Jean Paul Gaultier", genero: "hombre", tipo: "diseñador", status: 'disponible',
                 imagen: "https://getthelookar.vtexassets.com/arquivos/ids/179836-800-auto?v=638460401907270000&width=800&height=auto&aspect=true",
                 precios: { "Perfume Entero": 165800 },
                 notas: { salida: "Lavanda, Menta, Cardamomo, Bergamota y Artemisia.", corazon: "Canela, Flor de Azahar y Alcaravea.", fondo: "Vainilla, Haba Tonka, Ámbar, Sándalo y Cedro." }
             },
 
             {
-                id: 50, nombre: "Le Male Elixir Parfum", marca: "Jean Paul Gaultier", genero: "hombre", status: 'disponible',
+                id: 50, nombre: "Le Male Elixir Parfum", marca: "Jean Paul Gaultier", genero: "hombre", tipo: "diseñador", status: 'disponible',
                 imagen: "https://www.farmaciasrp.com.ar/30740-large_default/jean-paul-gaultier-le-male-elixir-parfum-200-ml-.jpg",
                 precios: { "Perfume 125ml": 226200 },
                 notas: { salida: "Lavanda y Menta.", corazon: "Vainilla y Benjuí.", fondo: "Miel, Haba Tonka y Tabaco." }
             },
 
             {
-                id: 49, nombre: "Le Male Le Parfum", marca: "Jean Paul Gaultier", genero: "hombre", status: 'agotado',
+                id: 49, nombre: "Le Male Le Parfum", marca: "Jean Paul Gaultier", genero: "hombre", tipo: "diseñador", status: 'agotado',
                 imagen: "https://m.media-amazon.com/images/I/71oGDPmn2GL.jpg",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Cardamomo.", corazon: "Lavanda y Iris.", fondo: "Vainilla, Notas Orientales y Notas Amaderadas." }
             },
 
             {
-                id: 42, nombre: "Maahir Legacy Silver EDP", marca: "Lattafa", genero: "hombre", status: 'agotado',
+                id: 42, nombre: "Maahir Legacy Silver EDP", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'agotado',
                 imagen: "https://acdn-us.mitiendanube.com/stores/004/407/494/products/maahir-edp-0e24f8561e691fb53c17140976003805-1024-1024.jpeg",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Lima, Menta, Pomelo, Lavanda y Piña.", corazon: "Bayas de Enebro, Romero, Pimienta Negra, Geranio e Incienso.", fondo: "Ambroxan, Musgo de Roble, Vetiver, Haba Tonka y Cachemira." }
             },
 
             {
-                id: 45, nombre: "Mayar", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 45, nombre: "Mayar", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/004/407/494/products/mayar-8235946ea3bd6e41c617101003376124-1024-1024.webp",
-                precios: { "Perfume Entero": 67000 },
+                precios: { "Perfume Entero": 73000 },
                 notas: { salida: "Lichi, Frambuesa y Hojas de Violeta.", corazon: "Rosa Blanca, Peonía y Jazmín.", fondo: "Vainilla y Almizcle." }
             },
 
             {
-                id: 47, nombre: "Mayar Cherry", marca: "Lattafa", genero: "mujer", status: 'agotado',
+                id: 47, nombre: "Mayar Cherry", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'agotado',
                 imagen: "https://http2.mlstatic.com/D_NQ_NP_743732-MLA81215783699_122024-O.webp",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Fresa, Bergamota.", corazon: "Cherry Jam, Cacao", fondo: "Vainilla, Ámbar, Pachulí" }
             },
 
             {
-                id: 46, nombre: "Mayar Natural Intense", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 46, nombre: "Mayar Natural Intense", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://fragarabic.com/cdn/shop/files/Mayar_Natural_Intense_Lattafa_Eau_de_Parfum_Para_Mujer_con_su_caja.webp?v=1744117655&width=2048",
-                precios: { "Perfume Entero": 67000 },
+                precios: { "Perfume Entero": 73000 },
                 notas: { salida: "Mandarina, Lichi, Melón y Agua de Coco.", corazon: "Jazmín, Lirio y Loto.", fondo: "Vainilla, Sándalo, Ambroxan y Almizcle." }
             },
 
             {
-                id: 24, nombre: "Nebras", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 24, nombre: "Nebras", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://http2.mlstatic.com/D_NQ_NP_621585-MLU54978398824_042023-O.webp",
                 precios: { "Perfume Entero": 95800 },
                 notas: { salida: "Frutos Rojos y Mandarina.", corazon: "Vainilla, Cacao y Rosa.", fondo: "Haba Tonka, Ámbar, Almizcle y Azúcar." }
             },
 
             {
-                id: 39, nombre: "Niche Parfum", marca: "Bharara", genero: "unisex", status: 'agotado',
+                id: 39, nombre: "Niche Parfum", marca: "Bharara", genero: "unisex", tipo: "arabe", status: 'agotado',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-30-5c301281d85876910117213959390891-1024-1024.png",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Citricos, Enebro de Virginia", corazon: "Jazmín, Chocolate, Abeto Balsámico", fondo: "Amberwood, Musgo" }
             },
 
             {
-                id: 36, nombre: "Odyssey Black EDP", marca: "Armaf", genero: "hombre", status: 'disponible',
+                id: 36, nombre: "Odyssey Black EDP", marca: "Armaf", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://http2.mlstatic.com/D_NQ_NP_764333-MLA77461694673_072024-O.webp",
-                precios: { "Perfume Entero 100 ml": 86200, "Perfume Entero 200 ml": 105200  },
+                precios: { "Perfume Entero 100 ml": 95000, "Perfume Entero 200 ml": 105200  },
                 notas: { salida: "Vainilla, Ámbar.", corazon: "Notas Orientales, Especias, Iris", fondo: "Vainilla, Cuero, Jazmin" }
             },
 
             {
-                id: 38, nombre: "Odyssey Dubai Chocolate", marca: "Armaf", genero: "unisex", status: 'agotado',
+                id: 38, nombre: "Odyssey Dubai Chocolate", marca: "Armaf", genero: "unisex", tipo: "arabe", status: 'agotado',
                 imagen: "https://perfumescardales.com.ar/wp-content/uploads/2025/05/Perfumes-Decants-46.jpg",
                 precios: { "Perfume Entero": 0 },
                 notas: { salida: "Café, Pistacho, Knafeh, Praliné, Avellana", corazon: "Chocolate, Vainilla, Cardamomo.", fondo: "Caramelo, Haba Tonka, Amberwood" }
             },
 
             {
-                id: 35, nombre: "Odyssey Mandarine", marca: "Armaf", genero: "unisex", status: 'disponible',
+                id: 35, nombre: "Odyssey Mandarine", marca: "Armaf", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-6-b2e3cbff40534cb1f617281392422355-1024-1024.png",
                 precios: { "Perfume Entero": 81500 },
                 notas: { salida: "Mandarina, Naranja, Azafrán, Salvia .", corazon: "Caramelo, Haba Tonka, Cempasúchil", fondo: "Ambroxan, Cedro, Vetiver" }
             },
 
             {
-                id: 37, nombre: "Odyssey Spectra", marca: "Armaf", genero: "unisex", status: 'disponible',
+                id: 37, nombre: "Odyssey Spectra", marca: "Armaf", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/004/878/940/products/4-odyssey-spectra-armaf-para-hombres-y-mujeres-2-6c0f22e1e215724d5d17456266782142-1024-1024.jpg",
                 precios: { "Perfume Entero": 86200 },
                 notas: { salida: "Canela, Manzana, Bergamota", corazon: "Canela, Lavanda, Flor de Azahar, Lirio", fondo: "Vainilla, Haba Tonka, Tabaco, Ámbar, Pachulí." }
             },
 
             {
-                id: 22, nombre: "Pride Shaheen Gold", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 22, nombre: "Pride Shaheen Gold", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-34-08d3d4711c89a6242417214056266468-1024-1024.png",
                 precios: { "Perfume Entero": 71800 },
                 notas: { salida: "Piña y Pomelo.", corazon: "Lavanda y Higo.", fondo: "Haba Tonka, Vainilla y Pachulí." }
             },
 
             {
-                id: 17, nombre: "Qaed Al Fursan", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 17, nombre: "Qaed Al Fursan", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://getthelookar.vtexassets.com/arquivos/ids/183995-800-auto?v=638678813262270000&width=800&height=auto&aspect=true",
                 precios: { "Perfume Entero": 59800 },
                 notas: { salida: "Piña, Azafrán.", corazon: "Jazmín, Abeto Balsámico.", fondo: "Madera de Oud, Ámbar, Cedro" }
             },
 
             {
-                id: 18, nombre: "Qaed Al Fursan Unlimited", marca: "Lattafa", genero: "unisex", status: 'disponible',
+                id: 18, nombre: "Qaed Al Fursan Unlimited", marca: "Lattafa", genero: "unisex", tipo: "arabe", status: 'disponible',
                 imagen: "https://d3cdlnm7te7ky2.cloudfront.net/media/catalog/product/cache/1f1b8d9a1b49678555bea203c2f52e39/1/5/152019-b-qaed-al-fursan-unlimited-edp-100ml.jpg",
                 precios: { "Perfume Entero": 57500 },
                 notas: { salida: "Coco, Cítricos y Piña.", corazon: "Ylang-Ylang, Frangipani y Jazmín.", fondo: "Vainilla, Almizcle y Sándalo." }
             },
 
             {
-                id: 55, nombre: "Stronger With You", marca: "Armani", genero: "hombre", status: 'agotado',
+                id: 55, nombre: "Stronger With You", marca: "Armani", genero: "hombre", tipo: "diseñador", status: 'agotado',
                 imagen: "https://perfugroupar.vtexassets.com/arquivos/ids/156623/3605522040588_1.jpg?v=637679384014970000",
                 precios: { "Perfume 100ml": 0 },
                 notas: { salida: "Castaña, Azúcar.", corazon: "Salvia, Lavanda.", fondo: "Vainilla, Humo" }
             },
 
             {
-                id: 54, nombre: "The Most Wanted Intense", marca: "Azzaro", genero: "hombre", status: 'disponible',
+                id: 54, nombre: "The Most Wanted Intense", marca: "Azzaro", genero: "hombre", tipo: "diseñador", status: 'disponible',
                 imagen: "https://fimgs.net/mdimg/perfume-thumbs/375x500.90953.2x.avif",
                 precios: { "Perfume 100ml": 175500 },
                 notas: { salida: "Bergamota.", corazon: "Lavanda.", fondo: "Licor y Musgo." }
             },
 
             {
-                id: 53, nombre: "The Most Wanted Parfum", marca: "Azzaro", genero: "hombre", status: 'agotado',
+                id: 53, nombre: "The Most Wanted Parfum", marca: "Azzaro", genero: "hombre", tipo: "diseñador", status: 'agotado',
                 imagen: "https://fimgs.net/mdimg/perfume-thumbs/375x500.73664.2x.avif",
                 precios: { "Perfume 100ml": 0 },
                 notas: { salida: "Jengibre.", corazon: "Acordes Amaderados.", fondo: "Vainilla Bourbon." }
             },
 
             {
-                id: 25, nombre: "The Kingdom", marca: "Lattafa", genero: "hombre", status: 'disponible',
+                id: 25, nombre: "The Kingdom", marca: "Lattafa", genero: "hombre", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/003/226/824/products/1024-x-1024-px-2025-05-08t201634-631-f0b893b56cadb00ad417467461990687-1024-1024.jpg",
                 precios: { "Perfume Entero": 93500 },
                 notas: { salida: "Menta, Lavanda y Salvia.", corazon: "Vainilla, Tabaco, Flor de Azahar.", fondo: "Haba Tonka, Benjuí, Ládano." }
             },
 
             {
-                id: 26, nombre: "The Kingdom Woman", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 26, nombre: "The Kingdom Woman", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/004/407/494/products/the-kingdom-for-women-dc40a2a3437ac3b8c217353388518236-640-0.webp",
                 precios: { "Perfume Entero": 81500 },
                 notas: { salida: "Pera, Peonía, Grosella Negra", corazon: "Praliné, Haba Tonka, Jazmín", fondo: "Vainilla, Almizcle, Sándalo y Ámbar." }
             },
 
             {
-                id: 10, nombre: "Yara Candy", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 10, nombre: "Yara Candy", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://getthelookar.vtexassets.com/arquivos/ids/184332/243277_edp-lattafa-yara-candy-x-100-ml_imagen-1.jpg?v=638708351540830000",
                 precios: { "Perfume Entero": 67000, "Decant 10ml": 13200 },
                 notas: { salida: "Grosella Negra, Mandarina Verde", corazon: "Frutilla, Frizz Candy, Gardenia", fondo: "Vainilla, Almizcle, Sándalo y Sándalo." }
             },
 
             {
-                id: 6, nombre: "Yara Moi", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 6, nombre: "Yara Moi", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://getthelookar.vtexassets.com/arquivos/ids/184334/243275_edp-lattafa-yara-moi-x-100-ml_imagen-1.jpg?v=638708351881570000",
                 precios: { "Perfume Entero": 69500, "Decant 10ml": 13500 },
                 notas: { salida: "Jazmín y Durazno.", corazon: "Ámbar y Caramelo.", fondo: "Sándalo y Pachulí." }
             },
 
             {
-                id: 11, nombre: "Yara Pink", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 11, nombre: "Yara Pink", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://acdn-us.mitiendanube.com/stores/002/708/808/products/arabe-5-c1c7cdfbd2484a437917306444058852-1024-1024.png",
                 precios: { "Perfume Entero": 67000 },
                 notas: { salida: "Heliotropo, Orquídea y Naranja Tangerina.", corazon: "Acuerdo Goloso y Frutas Tropicales.", fondo: "Vainilla, Almizcle y Sándalo." }
             },
 
             {
-                id: 7, nombre: "Yara Tous", marca: "Lattafa", genero: "mujer", status: 'disponible',
+                id: 7, nombre: "Yara Tous", marca: "Lattafa", genero: "mujer", tipo: "arabe", status: 'disponible',
                 imagen: "https://dcdn-us.mitiendanube.com/stores/001/220/411/products/whatsapp-image-2025-05-07-at-10-51-00-am-3f16374c4dd366aa4a17466269373679-1024-1024.jpeg",
                 precios: { "Perfume Entero": 59800, "Decant 10ml": 12500 },
                 notas: { salida: "Mango, Coco y Maracuyá.", corazon: "Jazmín, Heliotropo y Flor de Azahar.", fondo: "Vainilla, Cachemira y Almizcle." }
@@ -612,7 +617,8 @@
         const modalEl = document.getElementById('perfumeModal');
         const modalBodyEl = document.getElementById('modalBody');
         const modalCloseEl = document.getElementById('modalClose');
-        const filterContainerEl = document.getElementById('filter-container');
+        const genderFilterContainerEl = document.getElementById('gender-filter-container'); // Renombrado
+        const typeFilterContainerEl = document.getElementById('type-filter-container'); // Nuevo
         const cartButton = document.getElementById('cart-button');
         const cartSidebar = document.getElementById('cart-sidebar');
         const closeCartButton = document.getElementById('close-cart-button');
@@ -627,6 +633,7 @@
         const envioOptions = document.getElementById('envio-options');
 
         let activeGenderFilter = 'todos';
+        let activeTypeFilter = 'todos'; // Nuevo
         let cart = [];
 
         const formatCurrency = (value) => new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 }).format(value);
@@ -680,12 +687,22 @@
         const applyFilters = () => {
             const searchTerm = searchInputEl.value.toLowerCase();
             let filtered = perfumes;
+
+            // 1. Filtrar por género
             if (activeGenderFilter !== 'todos') {
                 filtered = filtered.filter(p => p.genero === activeGenderFilter);
             }
+            
+            // 2. Filtrar por tipo
+            if (activeTypeFilter !== 'todos') {
+                filtered = filtered.filter(p => p.tipo === activeTypeFilter);
+            }
+
+            // 3. Filtrar por búsqueda
             if (searchTerm) {
                 filtered = filtered.filter(p => p.nombre.toLowerCase().includes(searchTerm) || p.marca.toLowerCase().includes(searchTerm));
             }
+            
             renderPerfumes(filtered);
         };
         
@@ -735,14 +752,17 @@
                     const itemTotal = item.price * item.quantity;
                     total += itemTotal;
                     cartItemsEl.innerHTML += `
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="font-bold">${item.name}</p>
-                                <p class="text-sm text-gray-400">${item.size}</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="font-semibold text-gold">${formatCurrency(itemTotal)}</span>
-                                <button class="remove-from-cart-btn text-red-500 hover:text-red-400" data-index="${index}">&times;</button>
+                        <div class="flex items-center gap-4">
+                            <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-md border border-gold/20">
+                            <div class="flex-grow flex justify-between items-center">
+                                <div>
+                                    <p class="font-bold">${item.name}</p>
+                                    <p class="text-sm text-gray-400">${item.size}</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-semibold text-gold">${formatCurrency(itemTotal)}</span>
+                                    <button class="remove-from-cart-btn text-red-500 hover:text-red-400" data-index="${index}">&times;</button>
+                                </div>
                             </div>
                         </div>`;
                 });
@@ -753,17 +773,27 @@
 
         const addToCart = (perfumeId, size, price) => {
             const perfume = perfumes.find(p => p.id == perfumeId);
-            const cartItem = { id: perfumeId, name: perfume.nombre, size, price: parseFloat(price), quantity: 1 };
+            const cartItem = { id: perfumeId, name: perfume.nombre, size, price: parseFloat(price), quantity: 1, image: perfume.imagen };
             cart.push(cartItem);
             updateCart();
         };
         
         // Event Listeners
         searchInputEl.addEventListener('input', applyFilters);
-        filterContainerEl.addEventListener('click', (e) => {
+        
+        genderFilterContainerEl.addEventListener('click', (e) => {
             if (e.target.matches('.filter-btn')) {
                 activeGenderFilter = e.target.dataset.filter;
-                filterContainerEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                genderFilterContainerEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                applyFilters();
+            }
+        });
+
+        typeFilterContainerEl.addEventListener('click', (e) => {
+            if (e.target.matches('.filter-btn')) {
+                activeTypeFilter = e.target.dataset.filter;
+                typeFilterContainerEl.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
                 e.target.classList.add('active');
                 applyFilters();
             }
@@ -821,7 +851,6 @@
             }
             const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
             
-            // CORREGIDO: Obtener el número de WhatsApp seleccionado
             const selectedContactNumber = document.querySelector('input[name="whatsapp-contact"]:checked').value;
 
             let message = `¡Hola Lyon Parfum! Quisiera hacer el siguiente pedido:\n\n`;
@@ -832,7 +861,6 @@
             message += `Método de entrega: ${deliveryDetail}\n`;
             message += `Método de pago: ${paymentMethod}`;
             
-            // ACTUALIZADO: Usar el número seleccionado
             const whatsappUrl = `https://wa.me/${selectedContactNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });
@@ -847,7 +875,4 @@
     </script>
 
 </body>
-
 </html>
-
-
